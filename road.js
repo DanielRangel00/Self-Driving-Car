@@ -11,18 +11,33 @@ class Road{
         this.top=-infinity
         this.bottom=infinity
     }
-    draw(ctx){
-        ctx.LineWidth=5;
-        ctx.strokeStyle="white";
+    getLaneCenter(LaneIndex){
+        const LaneWidth=this.width/this.LaneCount;
+        return this.left+LaneWidth/2+
+           Math.min(LaneIndex*Lane
+    }
 
-        ctx.beginPath();
-        ctx.moveTo(this.left,this.top);
-        ctx.lineTo(this.left,this.bottom)
-        ctx.stroke();
+    draw(ctx) {
+        ctx.LineWidth = 5;
+        ctx.strokeStyle = "white";
 
-        ctx.beginPath();
-        ctx.moveTo(this.right,this.top);
-        ctx.lineTo(this.right,this.bottom)
-        ctx.stroke();
+        for (let i = 0; i <= this.LaneCount; i++) {
+            const x = Lerp(
+                this.left,
+                this.right,
+                i / this.LaneCount
+            );
+            if(i>0 && i<this.LaneCount){
+                ctx.setLineDash([20,20]);
+            }else{
+                ctx.setLineDash([]);
+            }
+            ctx.beginPath();
+            ctx.moveTo(x, this.top);
+            ctx.lineTo(x, this.bottom)
+            ctx.stroke();
+
+        }
     }
 }
+
