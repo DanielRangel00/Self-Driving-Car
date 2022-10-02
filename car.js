@@ -23,7 +23,7 @@ class Car {
         this.controls = new Controls(controlType);
     }
 
-    update(roadBorders,traffic) {
+    update(roadBorders,traffic){
         if(!this.damaged) {
             this.#move();
             this.polygon = this.#createPolygon();
@@ -124,7 +124,7 @@ class Car {
 
     }
 
-    draw(ctx,color){
+    draw(ctx,color,drawSensor=false){
         if(this.damaged){
             ctx.fillStyle="gray";
         }else{
@@ -138,7 +138,7 @@ class Car {
         }
         ctx.fill();
 
-        if(this.sensor) {
+        if(this.sensor && drawSensor){
             this.sensor.draw(ctx);
         }
     }
